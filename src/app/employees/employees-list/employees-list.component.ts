@@ -20,7 +20,6 @@ export class EmployeesListComponent implements OnInit {
       );
   }
   getId(user) {
-    console.log(user.id);
     this.route.navigate(['/employees/details',user.id]);
   }
 }

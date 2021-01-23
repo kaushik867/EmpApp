@@ -1,2 +1,5 @@
-<p>employee-details works!</p>
-{{ data | json }}
+<app-loader *ngIf="loaded"></app-loader>
+
+<mat-card *ngIf = "!loaded">
+    <mat-card-content>{{Emp.firstname}}</mat-card-content>
+</mat-card>

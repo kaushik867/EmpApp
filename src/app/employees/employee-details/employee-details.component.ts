@@ -9,16 +9,18 @@ import { EmployeesListServiceService } from '../services/employees-list-service.
 })
 export class EmployeeDetailsComponent implements OnInit {
 
-  data;
+  Emp;
   empId;
+  loaded = true;
   constructor( private actRoute: ActivatedRoute, private _http: EmployeesListServiceService) { 
-    this.empId = this.actRoute.snapshot.params.id;
+   
   }
 
   ngOnInit(): void {
+    this.empId =parseInt( this.actRoute.snapshot.params.id);
     this._http.getEmpDetails(this.empId).subscribe(data=>{
-      this.data = data;
-      console.log(data);
+      this.Emp = data;
+      this.loaded=false;
     })
   }
 

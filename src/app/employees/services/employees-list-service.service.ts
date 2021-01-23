@@ -16,7 +16,7 @@ export class EmployeesListServiceService {
   }
 
   getEmpDetails(id):Observable<[]>{
-    return this._http.get<[]>("http://localhost/api/employees/" + id)
+    return this._http.get<[]>("http://localhost/api/employees/"+ id)
     .pipe(catchError(this.errorHandler));
   }
 
