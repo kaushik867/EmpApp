@@ -1,5 +1,27 @@
-<app-loader *ngIf="loaded"></app-loader>
+<app-loader *ngIf="loader.isLoading | async"></app-loader>
 
-<mat-card *ngIf = "!loaded">
-    <mat-card-content>{{Emp.firstname}}</mat-card-content>
-</mat-card>
+<div class="details mx-5 my-5" >{{!loader.isLoading |async}}
+    <mat-card *ngIf="!(loader.isLoading |async)">
+        <mat-card-title>Details</mat-card-title>
+        <mat-divider></mat-divider>
+        <div class="py-4">
+            <mat-card-content>
+                <mat-card-subtitle>Basic Info</mat-card-subtitle>
+                <div class="title"> Name</div>
+                <div class="info">{{ Emp.title + " " +Emp.firstname}}</div>
+                <div class="title"> Email</div>
+                <div class="info">{{Emp.email.Personal}}</div>
+                <div class="title"> Mobile</div>
+                <div class="info">{{Emp.phone.Mobile}}</div>
+            </mat-card-content>
+            <mat-card-content>
+                <mat-card-subtitle>Company Details</mat-card-subtitle>
+                <div class="title"> company</div>
+                <div class="info">{{ Emp.company}}</div>
+                <div class="title"> Job Title</div>
+                <div class="info">{{Emp.job}}</div>
+            </mat-card-content>
+        </div>
+       
+    </mat-card>
+</div> 

@@ -4,3 +4,13 @@ table {
 .mat-row {
   cursor: pointer;
 }
+.records{
+  height: 519px;
+  clear: both;
+}
+
+input{
+  margin: 10px;
+  width:20%;
+  float:right;
+}

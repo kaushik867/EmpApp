@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import {catchError} from 'rxjs/operators'
+import {catchError} from 'rxjs/operators';
+import { User } from 'src/app/modal/user.modal';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class EmployeesListServiceService {
 
   constructor(private _http: HttpClient) { }
 
-  getEmployess():Observable<[]>{
-    return this._http.get<[]>("http://localhost/api/employees")
+  getEmployess():Observable<User[]>{
+    return this._http.get<User[]>("http://localhost/api/employees")
     .pipe(catchError(this.errorHandler));
   }
 

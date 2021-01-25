@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LoaderService } from 'src/app/loader/service/loader.service';
 import { EmployeesListServiceService } from '../services/employees-list-service.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class EmployeeDetailsComponent implements OnInit {
   Emp;
   empId;
   loaded = true;
-  constructor( private actRoute: ActivatedRoute, private _http: EmployeesListServiceService) { 
+  constructor( public loader: LoaderService,private actRoute: ActivatedRoute, private _http: EmployeesListServiceService) { 
    
   }
 
