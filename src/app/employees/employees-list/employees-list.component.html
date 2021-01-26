@@ -6,17 +6,22 @@
 </div>
 
 <div class="records mx-5">
-  <table *ngIf="!(loader.isLoading |async)" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>  Sl No. </th>
+        <th mat-header-cell *matHeaderCellDef>  Sl No. </th>
         <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
       </ng-container>
     
       
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <ng-container matColumnDef="firstname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> First name </th>
         <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Last name </th>
+        <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
       </ng-container>
     
       
@@ -26,17 +31,14 @@
       </ng-container>
     
       
-      <ng-container matColumnDef="jobtitle">
+      <ng-container matColumnDef="job">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Title </th>
         <td mat-cell *matCellDef="let element"> {{element.job}} </td>
-      </ng-container>
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Title </th>
-        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
       </ng-container>
     
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click) ="getId(row)"></tr>
+      
   </table>
 
   <mat-paginator [pageSize]="8"> </mat-paginator>

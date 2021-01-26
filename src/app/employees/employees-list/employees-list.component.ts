@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoaderService } from 'src/app/loader/service/loader.service';
 import { EmployeesListServiceService } from '../services/employees-list-service.service';
@@ -6,29 +6,39 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from 'src/app/modal/user.modal';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-employees-list',
   templateUrl: './employees-list.component.html',
   styleUrls: ['./employees-list.component.css']
 })
-export class EmployeesListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'company', 'jobtitle'];
-  data: User[];
+
+
+export class EmployeesListComponent implements OnInit, OnDestroy {
+  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'company', 'job'];
   dataSource:MatTableDataSource<User>;
-  @ViewChild(MatSort ,{static: false})sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator)paginator: MatPaginator;
+  subscription: Subscription;
 
 
-  constructor(public loader: LoaderService, private _http: EmployeesListServiceService, private route: Router) { }
-   
-  ngOnInit(): void {
-    this._http.getEmployess().subscribe(data=>{
-      this.data=data;
-      this.dataSource = new MatTableDataSource(this.data);
+  constructor(public loader: LoaderService, private _http: EmployeesListServiceService, private route: Router) {
+     this._http.getEmployess().subscribe(data=>{      
+      this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    });
+    }).unsubscribe; 
+    
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+  
+   
+  ngOnInit(): void {
+   
   }
 
   getId(user) {
