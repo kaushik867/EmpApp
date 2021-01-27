@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from 'src/app/modal/user.modal';
 import { Store } from '@ngrx/store';
+import * as EmpAction from '../state/emp.action';
 
 @Component({
   selector: 'app-employees-list',
@@ -23,24 +24,21 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
   subscription: any;
 
 
-  constructor(private store: Store<any>,public loader: LoaderService, private _http: EmployeesListServiceService, private route: Router) {
-    //  this.subscription = this._http.getEmployess().subscribe(data=>{      
-    //   this.dataSource = new MatTableDataSource(data);
-    //   this.dataSource.sort = this.sort;
-    //   this.dataSource.paginator = this.paginator;
-    // });
-    }
+  constructor(private store: Store<any>,public loader: LoaderService, private _http: EmployeesListServiceService, private route: Router) { 
+    this.store.dispatch(EmpAction.loadEmployee());
+    this.subscription = this.store.subscribe(state=>{
+      console.log(state.employees);
+      this.dataSource = state.employees.employee;
+    })
+   }
+  
   ngOnDestroy(): void {
-    // this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
   
    
   ngOnInit(): void {
-   this.store.dispatch({'type':'LOADEMP'});
-   this.store.subscribe(state=>{
-     console.log(state.employees.user);
-     this.dataSource = state.employees.user;
-   })
+  
   }
 
   getId(user) {

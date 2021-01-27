@@ -12,6 +12,7 @@ import { HttpInterceptorService } from './loader/service/http-interceptor.servic
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     FormsModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([]),
   ],
   exports: [],
   providers: [

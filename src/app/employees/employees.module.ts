@@ -8,6 +8,8 @@ import { EmployeeDetailsComponent } from './employee-details/employee-details.co
 import { LoaderModule } from '../loader/loader/loader.module';
 import { StoreModule } from '@ngrx/store';
 import { empReducer } from './state/emp.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { EmpEffects } from './state/emp.effect';
 
 
 
@@ -25,6 +27,7 @@ const proRoute: Routes=[
     CommonModule,
     MaterialModule,
     RouterModule.forChild(proRoute),
+    EffectsModule.forFeature([EmpEffects]),
     HttpClientModule,
     LoaderModule,
     StoreModule.forFeature('employees',empReducer),
