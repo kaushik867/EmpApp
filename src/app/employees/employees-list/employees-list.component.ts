@@ -6,7 +6,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from 'src/app/modal/user.modal';
-import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -21,15 +20,15 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
   dataSource:MatTableDataSource<User>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator)paginator: MatPaginator;
-  subscription: Subscription;
+  subscription: any;
 
 
   constructor(public loader: LoaderService, private _http: EmployeesListServiceService, private route: Router) {
-     this._http.getEmployess().subscribe(data=>{      
+     this.subscription = this._http.getEmployess().subscribe(data=>{      
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-    }).unsubscribe; 
+    });
     
   }
   ngOnDestroy(): void {

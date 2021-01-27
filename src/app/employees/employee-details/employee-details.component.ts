@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { LoaderService } from 'src/app/loader/service/loader.service';
 import { EmployeesListServiceService } from '../services/employees-list-service.service';
 
@@ -10,7 +9,7 @@ import { EmployeesListServiceService } from '../services/employees-list-service.
   styleUrls: ['./employee-details.component.css']
 })
 export class EmployeeDetailsComponent implements OnInit, OnDestroy{
-  subscription: Subscription;
+  subscription: any;
   Emp;
   empId;
   loaded = true;
@@ -23,7 +22,6 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy{
     this.empId =parseInt( this.actRoute.snapshot.params.id);
     this.subscription = this._http.getEmpDetails(this.empId).subscribe(data=>{
       this.Emp = data;
-      this.loaded=false;
     });
   }
 
