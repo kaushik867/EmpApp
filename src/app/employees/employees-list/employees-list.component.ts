@@ -7,7 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { User } from 'src/app/modal/user.modal';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import * as EmpAction from '../state/emp.action';
+import * as fromEmp from '../state/emp.selector';
 
 @Component({
   selector: 'app-employees-list',
@@ -17,8 +19,9 @@ import * as EmpAction from '../state/emp.action';
 
 
 export class EmployeesListComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'company', 'job'];
-  dataSource:MatTableDataSource<User>;
+  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'company', 'job','delete'];
+  dataSource$: Observable<User[]>;
+  dataSource: MatTableDataSource<User>;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator)paginator: MatPaginator;
   subscription: any;
@@ -26,10 +29,13 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<any>,public loader: LoaderService, private _http: EmployeesListServiceService, private route: Router) { 
     this.store.dispatch(EmpAction.loadEmployee());
-    this.subscription = this.store.subscribe(state=>{
-      console.log(state.employees);
-      this.dataSource = state.employees.employee;
+    this.dataSource$ = this.store.select(fromEmp.getEmp);
+    this.subscription = this.dataSource$.subscribe(data=>{
+      this.dataSource= new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     })
+    console.log(this.dataSource );
    }
   
   ngOnDestroy(): void {
@@ -43,6 +49,15 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
 
   getId(user) {
     this.route.navigate(['/employees/details',user.id]);
+  }
+
+  deleteEmp(user){
+    if(confirm("are you sure want to delete that record"))
+    {
+      console.log(user.id);
+      this.store.dispatch(EmpAction.deleteEmployee({payload:user.id}));
+    }
+
   }
   
   applySearch(fieldvalue){

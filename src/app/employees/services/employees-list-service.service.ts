@@ -21,6 +21,16 @@ export class EmployeesListServiceService {
     .pipe(catchError(this.errorHandler));
   }
 
+  deleteEmp(id):Observable<[]>{
+    return this._http.delete<[]>("http://localhost/api/employees/"+ id.payload)
+    .pipe(catchError(this.errorHandler));
+  }
+
+  getEmp(id):Observable<User>{
+    return this._http.get<User>("http://localhost/api/employees/"+ id.payload)
+    .pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: HttpErrorResponse){
     return throwError(error.error || "server error");
   }
