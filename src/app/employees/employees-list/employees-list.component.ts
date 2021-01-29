@@ -26,7 +26,6 @@ export class EmployeesListComponent implements OnInit, OnDestroy, AfterViewInit 
   @ViewChild(MatPaginator,{static: true})paginator: MatPaginator;
   subscription: any;
 
-
   constructor(private store: Store<any>,public loader: LoaderService, private _http: EmployeesListServiceService, private route: Router) { }
   
    
@@ -34,7 +33,8 @@ export class EmployeesListComponent implements OnInit, OnDestroy, AfterViewInit 
     this.store.dispatch(EmpAction.loadEmployee());
     this.dataSource$ = this.store.select(fromEmp.getEmp);
     this.subscription = this.dataSource$.subscribe(data=>{
-      this.dataSource.data = [...data];
+      this.dataSource.data= [...data];
+      console.log(data);
     });
   }
 
