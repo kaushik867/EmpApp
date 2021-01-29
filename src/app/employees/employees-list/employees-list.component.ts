@@ -34,7 +34,6 @@ export class EmployeesListComponent implements OnInit, OnDestroy, AfterViewInit 
     this.dataSource$ = this.store.select(fromEmp.getEmp);
     this.subscription = this.dataSource$.subscribe(data=>{
       this.dataSource.data= [...data];
-      console.log(data);
     });
   }
 
