@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { map, mergeMap, catchError, exhaustMap } from 'rxjs/operators';
 import { EmployeesListServiceService } from '../services/employees-list-service.service';
-import * as deleteEmp from '../state/emp.action'
-
+import * as employeeAction from '../state/emp.action';
 
 @Injectable()
 export class EmpEffects{
@@ -15,22 +14,23 @@ export class EmpEffects{
 
 
     loadEmps$ = createEffect(() => this.actions$.pipe(
-        ofType('[Employee-list Page] loadEmp'),
+        ofType(employeeAction.loadEmployee),
         mergeMap(() => this.empService.getEmployess()
           .pipe(
-            map(emp => ({ type: '[Employee-list page] loadEmpSuccess', payload: emp })),
-            catchError((error) => of({ type: '[Employee-list page] loadEmpFails' },error))
-          ))
+              map(emp => employeeAction.loadEmpSuccess({employees:emp})),
+              catchError((error) => of(employeeAction.loadEmpFails({error:error})))
+            )
+          )
         )
       );
 
       delete$ = createEffect(() =>
       this.actions$.pipe(
-        ofType(deleteEmp.deleteEmployee),
+        ofType(employeeAction.deleteEmployee),
         mergeMap(action =>
           this.empService.deleteEmp(action).pipe(
-            map(() => deleteEmp.deleteEmpSuccess({ payload:action.payload })),
-            catchError(error => of(deleteEmp.deleteEmpFails({ payload:error })))
+            map(() => employeeAction.deleteEmpSuccess({ id:action.id })),
+            catchError(error => of(employeeAction.deleteEmpFails({ error:error })))
           )
         )
       )
@@ -38,11 +38,11 @@ export class EmpEffects{
 
     getEmp$ = createEffect(() =>
       this.actions$.pipe(
-        ofType(deleteEmp.loadEmployeeById),
+        ofType(employeeAction.loadEmployeeById),
         mergeMap(action =>
           this.empService.getEmp(action).pipe(
-            map((emp) => deleteEmp.loadEmpByIdSuccess({ payload:emp })),
-            catchError(error => of(deleteEmp.loadEmpByIdEmpFails({ payload:error })))
+            map((emp) => employeeAction.loadEmpByIdSuccess({ employee:emp })),
+            catchError(error => of(employeeAction.loadEmpByIdEmpFails({ error:error })))
           )
         )
       )

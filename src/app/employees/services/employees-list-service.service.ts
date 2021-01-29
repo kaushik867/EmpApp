@@ -22,12 +22,12 @@ export class EmployeesListServiceService {
   }
 
   deleteEmp(id):Observable<[]>{
-    return this._http.delete<[]>("http://localhost/api/employees/"+ id.payload)
+    return this._http.delete<[]>("http://localhost/api/employees/"+ id.id)
     .pipe(catchError(this.errorHandler));
   }
 
   getEmp(id):Observable<User>{
-    return this._http.get<User>("http://localhost/api/employees/"+ id.payload)
+    return this._http.get<User>("http://localhost/api/employees/"+ id.id)
     .pipe(catchError(this.errorHandler));
   }
 

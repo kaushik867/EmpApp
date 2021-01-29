@@ -44,7 +44,7 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
   
    
   ngOnInit(): void {
-  
+    
   }
 
   getId(user) {
@@ -55,7 +55,7 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
     if(confirm("are you sure want to delete that record"))
     {
       console.log(user.id);
-      this.store.dispatch(EmpAction.deleteEmployee({payload:user.id}));
+      this.store.dispatch(EmpAction.deleteEmployee({id:user.id}));
     }
 
   }

@@ -26,11 +26,10 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.empId =parseInt( this.actRoute.snapshot.params.id);
-    this.store.dispatch(EmpAction.loadEmployeeById({payload: this.empId}))
+    this.store.dispatch(EmpAction.loadEmployeeById({id: this.empId}))
     this.dataSource$ = this.store.select(getEmp.getCurrentCustomer);
     this.subscription = this.dataSource$.subscribe(data=>{
       this.Emp = data;
-      console.log(data);
     });
   }
 

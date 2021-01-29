@@ -28,23 +28,23 @@ const EmpReducer = createReducer(
     on(empActions.loadEmployee, state=>{
         return {...state, loading:true}
     }),
-    on(empActions.loadEmpSuccess, (state,{payload})=>{
-        return empAdapter.addMany(payload,{...state, loading:false, loaded:true})
+    on(empActions.loadEmpSuccess, (state,{employees})=>{
+        return empAdapter.addMany(employees,{...state, loading:false, loaded:true})
     }),
-    on(empActions.loadEmpFails, (state,{payload})=>{
-        return {...state, error:payload};    
+    on(empActions.loadEmpFails, (state,{error})=>{
+        return {...state, error:error};    
     }),
-    on(empActions.deleteEmpSuccess, (state,{payload})=>{
-        return empAdapter.removeOne(payload,{...state, loading:false,loaded:true})
+    on(empActions.deleteEmpSuccess, (state,{id})=>{
+        return empAdapter.removeOne(id,{...state, loading:false,loaded:true})
     }),
-    on(empActions.deleteEmpFails, (state,{payload})=>{
-        return {...state, error:payload};    
+    on(empActions.deleteEmpFails, (state,{error})=>{
+        return {...state, error:error};    
     }),
-    on(empActions.loadEmpByIdSuccess, (state,{payload})=>{
-        return empAdapter.addOne(payload,{...state, selectedEmpId:payload.id})
+    on(empActions.loadEmpByIdSuccess, (state,{employee})=>{
+        return empAdapter.addOne(employee,{...state, selectedEmpId:employee.id})
     }),
-    on(empActions.loadEmpByIdEmpFails, (state,{payload})=>{
-        return {...state, error:payload};    
+    on(empActions.loadEmpByIdEmpFails, (state,{error})=>{
+        return {...state, error:error};    
     })
 );
 
