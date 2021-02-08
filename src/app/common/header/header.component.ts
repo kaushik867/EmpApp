@@ -7,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  opened=false;
+  opened: boolean = false;
+  logIn: boolean = localStorage.getItem('token')? false:true;
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  
+  loggedout(){
+    localStorage.clear();
+  }
 }

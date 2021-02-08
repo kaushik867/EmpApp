@@ -21,7 +21,17 @@ export class EmployeesListServiceService {
     .pipe(catchError(this.errorHandler));
   }
 
+  getToken(data):Observable<object>{
+    return this._http.post('http://localhost/getToken',data);
+  }
+
+  loggedIn(){
+    return !!localStorage.getItem('token');
+  }
+
   errorHandler(error: HttpErrorResponse){
     return throwError(error.error || "server error");
   }
+
+  
 }

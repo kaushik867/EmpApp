@@ -6,13 +6,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { LoaderModule } from '../loader/loader/loader.module';
+import { AuthGuard } from '../auth.guard';
 
 
 
 
 const proRoute: Routes=[
-  { path: 'list' , component: EmployeesListComponent},
-  { path: 'details/:id', component: EmployeeDetailsComponent}
+  { path: 'list' , component: EmployeesListComponent, canActivate:[AuthGuard]},
+  { path: 'details/:id', component: EmployeeDetailsComponent, canActivate:[AuthGuard]}
 ]
 
 @NgModule({

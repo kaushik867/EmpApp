@@ -11,6 +11,8 @@ import { HomeComponent } from './common/home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './loader/service/http-interceptor.service';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './common/login/login.component';
+import { AuthGuard } from './auth.guard';
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     HeaderComponent,
     HomeComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,11 +28,13 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    FormsModule,
     FormsModule
   ],
   exports: [],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true},
+    AuthGuard,
   ],
   bootstrap: [AppComponent]
 })

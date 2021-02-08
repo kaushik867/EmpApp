@@ -17,7 +17,7 @@ import { User } from 'src/app/modal/user.modal';
 
 export class EmployeesListComponent implements OnInit, OnDestroy, AfterViewInit {
   displayedColumns: string[] = ['id', 'firstname', 'lastname', 'company', 'job'];
-  dataSource = new MatTableDataSource<User>();
+  dataSource:MatTableDataSource<User> = new MatTableDataSource<User>();
   @ViewChild(MatSort,{static:true}) sort: MatSort;
   @ViewChild(MatPaginator,{static:true})paginator: MatPaginator;
   subscription: any;

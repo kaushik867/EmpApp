@@ -5,6 +5,12 @@
         <mat-nav-list >
             <a mat-list-item [routerLink]="['home']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" >Home </a>
             <a mat-list-item [routerLink]="['employees/list']" routerLinkActive="active"  >Employees List </a>
+            <ng-container *ngIf="logIn; else loggedOut">
+              <a mat-list-item [routerLink]="['login']" routerLinkActive="active" >Log in </a>
+            </ng-container>
+            <ng-template #loggedOut>
+              <a mat-list-item [routerLink]="['login']" (click)="loggedout()" routerLinkActive="active"  >Log out </a>
+            </ng-template>
         </mat-nav-list>
     </mat-drawer>
     <mat-drawer-content>
