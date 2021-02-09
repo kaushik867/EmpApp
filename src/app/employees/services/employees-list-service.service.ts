@@ -11,8 +11,13 @@ export class EmployeesListServiceService {
 
   constructor(private _http: HttpClient) { }
 
-  getEmployess():Observable<User[]>{
-    return this._http.get<User[]>("http://localhost/api/employees")
+  getEmployess(pageNo:number,limit:number):Observable<User[]>{
+    return this._http.get<User[]>(`http://localhost/api/employees?page=${pageNo}&limit=${limit}`)
+    .pipe(catchError(this.errorHandler));
+  }
+
+  searchEmp(pageNo:number,query:string):Observable<User[]>{
+    return this._http.get<User[]>(`http://localhost/api/employees?page=${pageNo}&&query=${query}`)
     .pipe(catchError(this.errorHandler));
   }
 

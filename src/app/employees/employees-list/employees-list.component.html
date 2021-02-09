@@ -2,7 +2,7 @@
 <app-loader *ngIf="loader.isLoading | async"></app-loader> 
 
 <div class="form-group">
-  <input (keyup)="applySearch($event.target.value)" class="form-control" aria-describedby="emailHelp" placeholder="Search">
+  <input (keyup)="onKeyUp($event.target.value)" class="form-control" aria-describedby="emailHelp" placeholder="Search">
 </div>
 
 <div class="records mx-5">
@@ -41,6 +41,8 @@
       
   </table>
 
-  <mat-paginator [pageSize]="8"> </mat-paginator>
+  <mat-paginator [length]="pageLength"
+              [pageSize]="pageSize" (page)="pageEvent = $event; onPageChange(pageEvent.pageIndex)" >
+</mat-paginator>
 
 </div>
